@@ -18,7 +18,7 @@ export default function Signup() {
     localStorage.setItem("username", formData.username);
     localStorage.setItem("email", formData.email);
     localStorage.setItem("name", formData.name);
-    navigate("/dashboard");
+    navigate("/ground");
   };
 
   const handleInputChange = (e) => {

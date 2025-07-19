@@ -20,7 +20,8 @@ export default function Login() {
     localStorage.setItem("username", formData.username);
     localStorage.setItem("email", formData.email);
 
-    navigate("/dashboard");
+    navigate("/ground");
+
   };
 
   const handleInputChange = (e) => {
