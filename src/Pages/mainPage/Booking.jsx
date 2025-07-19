@@ -1,4 +1,7 @@
+// src/Pages/mainPage/Booking.js
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase";
 import "./Booking.css";
 
 export default function Booking() {
@@ -10,6 +13,7 @@ export default function Booking() {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
@@ -35,9 +39,13 @@ export default function Booking() {
 
     setIsSubmitting(true);
     try {
+      const idToken = await auth.currentUser.getIdToken();
       const response = await fetch("http://localhost:5000/bookings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
         body: JSON.stringify(form),
       });
 
@@ -49,8 +57,10 @@ export default function Booking() {
           date_time: "",
           service_type: "Deep Cleaning",
         });
+        navigate("/dashboard");
       } else {
-        throw new Error("Failed to book");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to book");
       }
     } catch (error) {
       alert(error.message || "An error occurred while booking.");
@@ -61,7 +71,6 @@ export default function Booking() {
 
   return (
     <div className="booking-container">
-      {/* Animated floating bubbles using the booking image */}
       <div className="bubble-bg b1"></div>
       <div className="bubble-bg b2"></div>
       <div className="bubble-bg b3"></div>

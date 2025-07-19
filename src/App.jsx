@@ -27,7 +27,7 @@ export default function App() {
     <BrowserRouter>
       <header className="header">
         <div className="header-content">
-          <h1>MetaSync</h1>
+          <h1>MSync-Cleaning</h1>
           <nav>
             <a href="/ground">Home</a>
             <a href="/booking">Booking</a>
@@ -56,7 +56,7 @@ export default function App() {
       </main>
       <footer className="footer">
         <div className="footer-content">
-          <p>&copy; 2024 My Project. All rights reserved.</p>
+          <p>&copy; 2025 My Project. Mail - Kavindu.20230716@iit.ac.lk.</p>
           <div className="footer-links">
             <a href="/terms">Terms</a>
             <a href="/privacy">Privacy</a>
