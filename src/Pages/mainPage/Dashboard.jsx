@@ -21,29 +21,30 @@ export default function Dashboard() {
 
     if (username && isAuthenticated && auth.currentUser) {
       setUserData({ username });
-      fetchUserBookings(auth.currentUser.uid);
+      fetchUserBookings(); // ✅ updated to remove userId
     } else {
       window.location.href = "/login";
     }
   }, []);
 
-  const fetchUserBookings = async (userId) => {
+  const fetchUserBookings = async () => {
     try {
       const idToken = await auth.currentUser.getIdToken();
-      const response = await fetch(`http://localhost:5000/bookings/${userId}`, {
+      const response = await fetch("http://localhost:5000/bookings", {
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
       });
+
       if (response.ok) {
         const data = await response.json();
         setBookings(data);
       } else {
         throw new Error("Failed to fetch bookings");
       }
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching bookings:", error);
+    } finally {
       setLoading(false);
     }
   };
@@ -85,7 +86,7 @@ export default function Dashboard() {
     setEditingId(booking.id);
     setEditForm({
       service_type: booking.service_type,
-      date_time: booking.date_time.slice(0, 16), // Adjust for datetime-local
+      date_time: booking.date_time.slice(0, 16),
       status: booking.status,
     });
   };
@@ -151,7 +152,12 @@ export default function Dashboard() {
         {bookings.length === 0 ? (
           <div className="no-bookings">
             <p>You don't have any bookings yet.</p>
-            <button className="book-now-btn">Book a Service</button>
+            <button
+              className="book-now-btn"
+              onClick={() => (window.location.href = "/booking")}
+            >
+              Book a Service
+            </button>
           </div>
         ) : (
           <div className="bookings-list">
