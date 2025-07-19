@@ -1,24 +1,33 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
 import './styles_login.css';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
     name: "",
+    email: "",
+    password: "",
   });
+
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    if (!formData.username.trim() || !formData.email.trim() || !formData.name.trim()) {
+    const { name, email, password } = formData;
+    if (!name.trim() || !email.trim() || !password.trim()) {
       return alert("Please fill in all fields");
     }
-    localStorage.setItem("username", formData.username);
-    localStorage.setItem("email", formData.email);
-    localStorage.setItem("name", formData.name);
-    navigate("/ground");
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, { displayName: name });
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("username", email); // For backward compatibility
+      navigate("/ground");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -32,9 +41,7 @@ export default function Signup() {
         <h2 className="form-title">Sign Up</h2>
         <form onSubmit={handleSignup} className="form">
           <div className="form-group">
-            <label htmlFor="name" className="form-label">
-              Full Name
-            </label>
+            <label htmlFor="name" className="form-label">Full Name</label>
             <input
               id="name"
               type="text"
@@ -46,23 +53,7 @@ export default function Signup() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              name="username"
-              placeholder="Enter your username"
-              value={formData.username}
-              onChange={handleInputChange}
-              className="form-input"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
               id="email"
               type="email"
@@ -73,15 +64,23 @@ export default function Signup() {
               className="form-input"
             />
           </div>
-          <button type="submit" className="submit-button">
-            Sign Up
-          </button>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Enter a password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </div>
+          <button type="submit" className="submit-button">Sign Up</button>
         </form>
         <p className="signup-text">
           Already have an account?{" "}
-          <a href="/login" className="signup-link">
-            Sign in
-          </a>
+          <Link to="/login" className="signup-link">Sign in</Link>
         </p>
       </div>
     </div>
