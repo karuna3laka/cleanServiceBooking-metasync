@@ -7,6 +7,7 @@ import Signup from "./Pages/signLogin/Signup";
 import Dashboard from "./Pages/mainPage/Dashboard";
 import MGround from "./Pages/mainPage/mGround";
 import Booking from "./Pages/mainPage/Booking";
+import './App.css'; // Assuming you have some global styles
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,23 +25,45 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/dashboard"
-          element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/ground"
-          element={isAuthenticated ? <MGround /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/booking"
-          element={isAuthenticated ? <Booking /> : <Navigate to="/login" />}
-        />
-      </Routes>
+      <header className="header">
+        <div className="header-content">
+          <h1>MetaSync</h1>
+          <nav>
+            <a href="/ground">Home</a>
+            <a href="/booking">Booking</a>
+            <a href="/dashboard">Dashboard</a>
+          </nav>
+        </div>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/dashboard"
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/ground"
+            element={isAuthenticated ? <MGround /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/booking"
+            element={isAuthenticated ? <Booking /> : <Navigate to="/login" />}
+          />
+        </Routes>
+      </main>
+      <footer className="footer">
+        <div className="footer-content">
+          <p>&copy; 2024 My Project. All rights reserved.</p>
+          <div className="footer-links">
+            <a href="/terms">Terms</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/contact">Contact</a>
+          </div>
+        </div>
+      </footer>
     </BrowserRouter>
   );
 }

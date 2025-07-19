@@ -5,18 +5,94 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Bubbles floating background */
 .booking-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
-              url('D:\CleanMETASYNC\metasync-cleanService\src\assets\pexels-karolina-grabowska-4239031.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  position: relative;
   padding: 1rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* Bubble image elements */
+.bubble-bg {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(1.4px);
+  opacity: 0.7;
+  z-index: 0;
+  object-fit: cover;
+  animation: bubbleFloat 14s infinite alternate ease-in-out;
+  background: #f8fafc;
+  box-shadow: 0 0 0 24px #e0f2fe55, 0 0 44px 12px #60a5fa44;
+}
+
+/* Each bubble gets a different position and animation speed + direction */
+.bubble-bg.b1 {
+  width: 220px; height: 220px;
+  left: 8vw; top: 7vh;
+  animation-delay: 0s;
+  animation-duration: 15s;
+  background: radial-gradient(circle at 60% 60%, #fff 92%, #e0f2fe 100%);
+  background-image: url('./assets/pexels-karolina-grabowska-4239031.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.bubble-bg.b2 {
+  width: 150px; height: 150px;
+  left: 60vw; top: 12vh;
+  animation-delay: 2.5s;
+  animation-duration: 13s;
+  background: radial-gradient(circle at 40% 40%, #e0f2fe 90%, #60a5fa 100%);
+  background-image: url('./assets/pexels-karolina-grabowska-4239031.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.bubble-bg.b3 {
+  width: 120px; height: 120px;
+  left: 80vw; top: 50vh;
+  animation-delay: 5s;
+  animation-duration: 16s;
+  background: radial-gradient(circle at 45% 45%, #fff 98%, #3b82f6 100%);
+  background-image: url('./assets/pexels-karolina-grabowska-4239031.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.bubble-bg.b4 {
+  width: 90px; height: 90px;
+  left: 15vw; top: 70vh;
+  animation-delay: 6.5s;
+  animation-duration: 11s;
+  background: radial-gradient(circle at 80% 80%, #e0f2fe 90%, #60a5fa 100%);
+  background-image: url('./assets/pexels-karolina-grabowska-4239031.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.bubble-bg.b5 {
+  width: 70px; height: 70px;
+  left: 65vw; top: 75vh;
+  animation-delay: 8s;
+  animation-duration: 12s;
+  background: radial-gradient(circle at 20% 20%, #fff 90%, #e0f2fe 100%);
+  background-image: url('./assets/pexels-karolina-grabowska-4239031.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Animate bubbles floating up and slightly sideways, for dynamic movement */
+@keyframes bubbleFloat {
+  0% { transform: translateY(0) scale(1) rotate(0deg);}
+  30% { transform: translateY(-30px) scale(1.05) rotate(10deg);}
+  60% { transform: translateY(-55px) scale(1.1) rotate(-10deg);}
+  100% { transform: translateY(0) scale(1) rotate(0deg);}
+}
+
+/* Form styles remain unchanged */
 .form-wrapper {
   background: rgba(255, 255, 255, 0.97);
   border-radius: 1.25rem;
@@ -25,6 +101,7 @@ body {
   width: 100%;
   max-width: 30rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
 }
 
 .form-wrapper:hover {
@@ -138,6 +215,12 @@ body {
   .submit-button {
     padding: 0.75rem;
   }
+
+  .bubble-bg.b1 { width: 120px; height: 120px; }
+  .bubble-bg.b2 { width: 80px; height: 80px; }
+  .bubble-bg.b3 { width: 70px; height: 70px; }
+  .bubble-bg.b4 { width: 54px; height: 54px; }
+  .bubble-bg.b5 { width: 40px; height: 40px; }
 }
 
 @media (max-width: 480px) {

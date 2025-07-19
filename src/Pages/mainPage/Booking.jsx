@@ -61,6 +61,12 @@ export default function Booking() {
 
   return (
     <div className="booking-container">
+      {/* Animated floating bubbles using the booking image */}
+      <div className="bubble-bg b1"></div>
+      <div className="bubble-bg b2"></div>
+      <div className="bubble-bg b3"></div>
+      <div className="bubble-bg b4"></div>
+      <div className="bubble-bg b5"></div>
       <div className="form-wrapper">
         <h2 className="form-title">Book a Cleaning Service</h2>
         <form className="form" onSubmit={handleSubmit}>
