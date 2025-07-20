@@ -1,49 +1,76 @@
+// src/Pages/mainPage/MGround.jsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import "./style.MGround.css";
 import backgroundImage from "../../assets/pexels-karolina-grabowska-4239031.jpg";
 
 export default function MGround() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    const fetchUserName = async () => {
-      const user = auth.currentUser;
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
-            setName(docSnap.data().full_name);
+            const data = docSnap.data();
+            setName(data.full_name || "");
+            setIsAdmin(data.isAdmin === true);
           }
         } catch (error) {
           console.error("Failed to fetch user data:", error);
         }
       }
-    };
+      setAuthChecked(true);
+    });
 
-    fetchUserName();
+    return () => unsubscribe();
   }, []);
+
+  const handleAdminRedirect = () => {
+    window.location.href = "http://localhost:3071/admin";
+  };
 
   return (
     <div className="posh-landing" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="posh-overlay"></div>
+
+      {isAdmin && (
+        <div className="admin-banner">
+          <span className="admin-banner-text">Admin Access Granted</span>
+          <div className="admin-banner-glow"></div>
+        </div>
+      )}
+
+      {/* Button that redirects to /admin */}
+      <button
+        onClick={handleAdminRedirect}
+        className="admin-corner-btn"
+        title="Go to Admin Dashboard"
+      >
+        <span className="admin-icon">🔐</span>
+        <span className="admin-tooltip">Admin Dashboard</span>
+      </button>
+
       <div className="posh-glass-container">
-        {/* Rest of your component remains exactly the same */}
         <div className="posh-content">
           <div className="posh-header">
             <h1 className="posh-title">
               Welcome{name && <span className="posh-username">, {name}</span>}
-              <span role="img" aria-label="wave" className="posh-wave">👋</span>
+              <span className="posh-wave">👋</span>
             </h1>
             <p className="posh-description">
               Experience unparalleled digital excellence with our premium services.
             </p>
           </div>
-          
+
           <div className="posh-stats">
             <div className="posh-stat-card">
               <div className="stat-number">240+</div>
@@ -74,17 +101,11 @@ export default function MGround() {
         </div>
 
         <div className="posh-actions">
-          <button
-            onClick={() => navigate("/booking")}
-            className="posh-btn posh-primary"
-          >
+          <button onClick={() => navigate("/booking")} className="posh-btn posh-primary">
             <span className="btn-icon">✨</span>
             Get Started
           </button>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="posh-btn posh-secondary"
-          >
+          <button onClick={() => navigate("/dashboard")} className="posh-btn posh-secondary">
             <span className="btn-icon">📊</span>
             Dashboard
           </button>
@@ -93,13 +114,17 @@ export default function MGround() {
 
       <div className="posh-bubbles">
         {[...Array(12)].map((_, i) => (
-          <div key={i} className="posh-bubble" style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: `${Math.random() * 60 + 20}px`,
-            height: `${Math.random() * 60 + 20}px`,
-            animationDelay: `${Math.random() * 5}s`
-          }}></div>
+          <div
+            key={i}
+            className="posh-bubble"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 60 + 20}px`,
+              height: `${Math.random() * 60 + 20}px`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          ></div>
         ))}
       </div>
     </div>

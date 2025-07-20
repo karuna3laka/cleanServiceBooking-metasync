@@ -1,0 +1,84 @@
+.admin-dashboard-container {
+  padding: 2rem;
+  background: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.admin-bookings-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.admin-bookings-table th,
+.admin-bookings-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.admin-bookings-table th {
+  background: #007aff; /* iOS blue */
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  position: sticky;
+  top: 0;
+}
+
+.admin-bookings-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-bookings-table tr:hover {
+  background-color: rgba(0, 122, 255, 0.03);
+}
+
+.admin-bookings-table td select,
+.admin-bookings-table td input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d1d6;
+  border-radius: 8px;
+  background-color: #f8f8fa;
+  font-size: 14px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.admin-bookings-table td select:focus,
+.admin-bookings-table td input:focus {
+  outline: none;
+  border-color: #007aff;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+}
+
+.admin-home-btn {
+  margin-top: 1rem;
+  padding: 12px 24px;
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.2);
+}
+
+.admin-home-btn:hover {
+  background: #0062cc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 122, 255, 0.3);
+}
+
+.admin-home-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 122, 255, 0.2);
+}

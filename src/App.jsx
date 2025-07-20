@@ -9,6 +9,10 @@ import MGround from "./Pages/mainPage/mGround";
 import Booking from "./Pages/mainPage/Booking";
 import './App.css'; // Assuming you have some global styles
 
+import AdminDashboard from "./Pages/admin/AdminDashboard";
+
+
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -52,6 +56,13 @@ export default function App() {
             path="/booking"
             element={isAuthenticated ? <Booking /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/admin"
+            element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" />}
+          />
+
+          
+          
         </Routes>
       </main>
       <footer className="footer">
