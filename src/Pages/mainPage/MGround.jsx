@@ -1,50 +1,106 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import "./style.MGround.css";
+import backgroundImage from "../../assets/pexels-karolina-grabowska-4239031.jpg";
 
 export default function MGround() {
-  const name = localStorage.getItem("username");
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setName(docSnap.data().full_name);
+          }
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   return (
-    <div className="luxury-landing">
-      <div className="luxury-container">
-        <div className="luxury-content">
-          <h1 className="luxury-title">
-            Welcome
-            {name ? (
-              <span className="luxury-username">, {name}</span>
-            ) : ""}
-            <span role="img" aria-label="wave" className="luxury-wave">👋</span>
-          </h1>
-          <p className="luxury-description">
-            Experience a new level of cleanliness with our premium services.
-          </p>
+    <div className="posh-landing" style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div className="posh-overlay"></div>
+      <div className="posh-glass-container">
+        {/* Rest of your component remains exactly the same */}
+        <div className="posh-content">
+          <div className="posh-header">
+            <h1 className="posh-title">
+              Welcome{name && <span className="posh-username">, {name}</span>}
+              <span role="img" aria-label="wave" className="posh-wave">👋</span>
+            </h1>
+            <p className="posh-description">
+              Experience unparalleled digital excellence with our premium services.
+            </p>
+          </div>
+          
+          <div className="posh-stats">
+            <div className="posh-stat-card">
+              <div className="stat-number">240+</div>
+              <div className="stat-label">Elite Projects</div>
+              <div className="stat-divider"></div>
+            </div>
+            <div className="posh-stat-card satisfaction-card">
+              <div className="satisfaction-ring">
+                <svg className="progress-ring" width="80" height="80">
+                  <circle
+                    className="progress-ring-circle"
+                    stroke="#34C759"
+                    strokeWidth="4"
+                    strokeDasharray="226"
+                    strokeDashoffset="18"
+                    fill="transparent"
+                    r="36"
+                    cx="40"
+                    cy="40"
+                  />
+                </svg>
+                <div className="stat-number">92%</div>
+              </div>
+              <div className="stat-label">Client Satisfaction</div>
+              <div className="stat-divider"></div>
+            </div>
+          </div>
         </div>
-        <div className="luxury-actions">
+
+        <div className="posh-actions">
           <button
             onClick={() => navigate("/booking")}
-            className="luxury-btn luxury-primary"
+            className="posh-btn posh-primary"
           >
-            Book a Cleaning
+            <span className="btn-icon">✨</span>
+            Get Started
           </button>
           <button
             onClick={() => navigate("/dashboard")}
-            className="luxury-btn luxury-secondary"
+            className="posh-btn posh-secondary"
           >
-            Go to Dashboard
+            <span className="btn-icon">📊</span>
+            Dashboard
           </button>
         </div>
-        <div className="luxury-bubbles">
-          {/* Elegant bubble positions */}
-          <div className="luxury-bubble large" style={{ left: "8%", top: "18%", animationDelay: "0.5s" }}></div>
-          <div className="luxury-bubble medium" style={{ left: "25%", top: "55%", animationDelay: "1.2s" }}></div>
-          <div className="luxury-bubble small" style={{ left: "32%", top: "75%", animationDelay: "2.1s" }}></div>
-          <div className="luxury-bubble large" style={{ left: "52%", top: "12%", animationDelay: "0.8s" }}></div>
-          <div className="luxury-bubble medium" style={{ left: "65%", top: "62%", animationDelay: "1.5s" }}></div>
-          <div className="luxury-bubble small" style={{ left: "78%", top: "32%", animationDelay: "2.4s" }}></div>
-          <div className="luxury-bubble large" style={{ left: "88%", top: "68%", animationDelay: "1.8s" }}></div>
-          <div className="luxury-bubble medium" style={{ left: "92%", top: "35%", animationDelay: "2.9s" }}></div>
-        </div>
+      </div>
+
+      <div className="posh-bubbles">
+        {[...Array(12)].map((_, i) => (
+          <div key={i} className="posh-bubble" style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            width: `${Math.random() * 60 + 20}px`,
+            height: `${Math.random() * 60 + 20}px`,
+            animationDelay: `${Math.random() * 5}s`
+          }}></div>
+        ))}
       </div>
     </div>
   );

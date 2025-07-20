@@ -236,4 +236,10 @@ body {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
+  .form-input-readonly {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
 }

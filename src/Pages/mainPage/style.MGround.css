@@ -1,70 +1,57 @@
-/* Posh Landing Page Styles */
-.luxury-landing {
+/* Ultra-Posh iOS-Inspired Styles */
+.posh-landing {
   min-height: 100vh;
   width: 100vw;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #F5F7FA 0%, #E4E9F2 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
-  font-family: 'Montserrat', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.luxury-container {
+.posh-glass-container {
   width: 90%;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  padding: 4rem 2rem;
-}
-
-.luxury-content {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 3rem;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.75);
   border-radius: 24px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  text-align: center;
-  margin-bottom: 3rem;
+  padding: 2.5rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  max-width: 700px;
+  z-index: 10;
 }
 
-.luxury-title {
-  font-size: 2.8rem;
-  font-weight: 600;
-  color: #212529;
-  margin-bottom: 1.5rem;
+.posh-content {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.posh-header {
+  margin-bottom: 2.5rem;
+}
+
+.posh-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #1C1C1E;
   letter-spacing: -0.5px;
-  position: relative;
-  display: inline-block;
 }
 
-.luxury-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, #adb5bd, #495057);
-  border-radius: 3px;
-}
-
-.luxury-username {
-  color: #495057;
+.posh-username {
+  color: #007AFF;
   font-weight: 700;
 }
 
-.luxury-wave {
-  margin-left: 10px;
+.posh-wave {
+  margin-left: 8px;
   animation: wave 2s infinite;
+  display: inline-block;
 }
 
 @keyframes wave {
@@ -73,76 +60,132 @@
   75% { transform: rotate(-15deg); }
 }
 
-.luxury-description {
-  font-size: 1.2rem;
-  color: #6c757d;
-  line-height: 1.6;
-  max-width: 500px;
+.posh-description {
+  font-size: 1.1rem;
+  color: #636366;
+  line-height: 1.5;
+  max-width: 300px;
   margin: 0 auto;
 }
 
-.luxury-actions {
+.posh-stats {
   display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0;
 }
 
-.luxury-btn {
-  padding: 1rem 2.5rem;
+.posh-stat-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+  padding: 1.5rem 1rem;
+  min-width: 120px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  position: relative;
+}
+
+.satisfaction-card {
+  padding: 1.5rem;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1C1C1E;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #636366;
+  font-weight: 500;
+}
+
+.stat-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+  margin: 1rem auto;
+  width: 60%;
+}
+
+.satisfaction-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progress-ring-circle {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  animation: progress 1.5s ease-out forwards;
+}
+
+@keyframes progress {
+  0% { stroke-dashoffset: 226; }
+  100% { stroke-dashoffset: 18; }
+}
+
+.posh-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.posh-btn {
+  padding: 1.1rem;
   border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
 
-.luxury-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
-  z-index: -1;
-}
-
-.luxury-btn:hover::before {
-  transform: translateX(100%);
-}
-
-.luxury-primary {
-  background: linear-gradient(135deg, #495057, #212529);
+.posh-primary {
+  background: linear-gradient(135deg, #007AFF, #34C759);
   color: white;
-  box-shadow: 0 8px 24px rgba(33, 37, 41, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
 }
 
-.luxury-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(33, 37, 41, 0.2);
+.posh-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
 }
 
-.luxury-secondary {
-  background: white;
-  color: #495057;
-  border: 2px solid #dee2e6;
-  box-shadow: 0 8px 24px rgba(222, 226, 230, 0.3);
+.posh-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  color: #007AFF;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 122, 255, 0.1);
 }
 
-.luxury-secondary:hover {
-  transform: translateY(-3px);
-  border-color: #adb5bd;
-  box-shadow: 0 12px 28px rgba(222, 226, 230, 0.4);
+.posh-secondary:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
 }
 
-/* Luxury Bubbles */
-.luxury-bubbles {
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+.posh-bubbles {
   position: absolute;
   top: 0;
   left: 0;
@@ -152,101 +195,141 @@
   z-index: 1;
 }
 
-.luxury-bubble {
+.posh-bubble {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  animation: float-up 10s infinite ease-in-out;
+  background: rgba(255, 255, 255, 0.6);
+  animation: float-up 15s infinite ease-in-out;
   filter: blur(1px);
-  opacity: 0.8;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-}
-
-.luxury-bubble.large {
-  width: 100px;
-  height: 100px;
-}
-
-.luxury-bubble.medium {
-  width: 70px;
-  height: 70px;
-}
-
-.luxury-bubble.small {
-  width: 40px;
-  height: 40px;
+  opacity: 0;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes float-up {
   0% {
-    transform: translateY(0) scale(1);
+    transform: translateY(100vh) scale(0.8);
     opacity: 0;
   }
-  10% {
-    opacity: 0.8;
+  20% {
+    opacity: 0.7;
   }
   90% {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   100% {
-    transform: translateY(-100vh) scale(1.1);
+    transform: translateY(-100px) scale(1.1);
     opacity: 0;
   }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .luxury-container {
-    padding: 2rem 1rem;
+  .posh-glass-container {
+    padding: 2rem 1.5rem;
   }
   
-  .luxury-content {
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  .luxury-title {
+  .posh-title {
     font-size: 2.2rem;
   }
   
-  .luxury-description {
+  .posh-description {
     font-size: 1rem;
   }
   
-  .luxury-actions {
+  .posh-stats {
     flex-direction: column;
     gap: 1rem;
-    width: 100%;
-    max-width: 300px;
+    align-items: center;
   }
   
-  .luxury-bubble.large {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .luxury-bubble.medium {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .luxury-bubble.small {
-    width: 25px;
-    height: 25px;
+  .posh-stat-card {
+    width: 180px;
   }
 }
 
 @media (max-width: 480px) {
-  .luxury-content {
-    padding: 1.5rem;
+  .posh-glass-container {
+    padding: 1.8rem 1.2rem;
+    width: 85%;
   }
   
-  .luxury-title {
-    font-size: 1.8rem;
+  .posh-title {
+    font-size: 2rem;
   }
   
-  .luxury-btn {
-    padding: 0.8rem 1.5rem;
+  .posh-btn {
+    padding: 1rem;
     font-size: 1rem;
+
   }
+  /* Updated CSS with background image enhancements */
+.posh-landing {
+  min-height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.posh-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  
+  z-index: 1;
+}
+
+.posh-glass-container {
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+/* Rest of your CSS remains the same, but we'll enhance some colors for better contrast */
+.posh-title {
+  color: #1C1C1E;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.posh-description {
+  color: #3A3A3C;
+}
+
+.posh-stat-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Make bubbles more subtle to not compete with background */
+.posh-bubble {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Enhance button visibility */
+.posh-primary {
+  box-shadow: 0 4px 20px rgba(0, 122, 255, 0.4);
+}
+
+.posh-secondary {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 }

@@ -1,23 +1,48 @@
-// src/Pages/mainPage/Booking.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import "./Booking.css";
 
 export default function Booking() {
   const [form, setForm] = useState({
-    customer_name: localStorage.getItem("username") || "",
+    customer_name: "",
+    customer_email: "",
     address: "",
     date_time: "",
     service_type: "Deep Cleaning",
   });
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  // 🔁 Fetch user info from Firestore
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            setForm((prev) => ({
+              ...prev,
+              customer_name: data.full_name || "",
+              customer_email: data.email || "",
+            }));
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   const validateForm = () => {
     const newErrors = {};
-    if (!form.customer_name.trim()) newErrors.customer_name = "Name is required";
     if (!form.address.trim()) newErrors.address = "Address is required";
     if (!form.date_time) newErrors.date_time = "Date and time are required";
     return newErrors;
@@ -51,12 +76,12 @@ export default function Booking() {
 
       if (response.ok) {
         alert("Booking created successfully!");
-        setForm({
-          customer_name: localStorage.getItem("username") || "",
+        setForm((prev) => ({
+          ...prev,
           address: "",
           date_time: "",
           service_type: "Deep Cleaning",
-        });
+        }));
         navigate("/dashboard");
       } else {
         const errorData = await response.json();
@@ -80,7 +105,7 @@ export default function Booking() {
         <h2 className="form-title">Book a Cleaning Service</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="customer_name" className="form-label">Name</label>
+            <label htmlFor="customer_name" className="form-label">Full Name</label>
             <input
               id="customer_name"
               name="customer_name"
@@ -88,7 +113,16 @@ export default function Booking() {
               readOnly
               className="form-input form-input-readonly"
             />
-            {errors.customer_name && <p className="form-error">{errors.customer_name}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="customer_email" className="form-label">Email</label>
+            <input
+              id="customer_email"
+              name="customer_email"
+              value={form.customer_email}
+              readOnly
+              className="form-input form-input-readonly"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="address" className="form-label">Address</label>
